@@ -26,12 +26,13 @@ void postd() {
 
   var url = Uri.http('localhost:9000', '/Users');
 
-  var response = client.post(url,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-      },
-      body: json.encode({'title: "test"'}));
+  var response = client.get(
+    url,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "*",
+    },
+  );
 
   print(response.toString());
 }
@@ -43,6 +44,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter App',
+      theme: ThemeData(
+        primarySwatch: Colors.blueGrey,
+      ),
       home: MyHomePage(),
     );
   }
@@ -98,7 +102,9 @@ class MyHomePage extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          postd();
+        },
       ),
     );
   }

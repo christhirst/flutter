@@ -10,6 +10,7 @@ class EntriesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         height: 200,
+        color: Theme.of(context).primaryColor,
         child: ListView.builder(
           itemBuilder: (ctx, index) {
             return Card(
