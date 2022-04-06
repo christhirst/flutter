@@ -1,6 +1,10 @@
 class Scim {
   final String? resources;
   Scim({this.resources});
+
+  factory Scim.fromJson(Map<String, dynamic> json) {
+    return Scim(resources: json['Resources']);
+  }
 }
 
 class Entry {

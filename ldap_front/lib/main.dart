@@ -16,7 +16,14 @@ dynamic getd() {
   client.get(url, headers: {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "*",
-  }).then((response) => (news = json.decode(response.body)));
+  }).then((response) {
+    news = json.decode(response.body);
+    print(news.entries.first.key);
+    //print(news.entries.first.value);
+    for (var i in news.entries.first.value) {
+      print(i);
+    }
+  });
 
   return news;
 }
@@ -103,7 +110,8 @@ class MyHomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          postd();
+          getd();
+          //print(fetchAlbum().then((value) => print(value)));
         },
       ),
     );
