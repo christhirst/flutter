@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/scim.dart';
 
 class EntriesList extends StatelessWidget {
-  final List<Entry> Entries;
+  final List Entries;
 
   EntriesList(this.Entries);
 
@@ -16,7 +16,7 @@ class EntriesList extends StatelessWidget {
             return Card(
               child: ExpansionTile(
                 title: Text(
-                  Entries[index].id,
+                  Entries.toString(),
                   style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
                 ),
                 children: <Widget>[

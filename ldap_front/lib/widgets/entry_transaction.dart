@@ -6,24 +6,35 @@ import '../models/scim.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-dynamic getd() {
+List getd() {
   Map news = Map();
+  Map ss = Map();
   var client = http.Client();
   var url = Uri.http('localhost:9000', '/Users');
-
-  client.get(url, headers: {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "*",
-  }).then((response) {
-    news = json.decode(response.body);
-    print(news.entries.first.key);
-    //print(news.entries.first.value);
-    for (var i in news.entries.first.value) {
-      print(i);
-    }
-  });
-
-  return news;
+  var nl = [];
+  try {
+    client.get(url, headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "*",
+    }).then((response) {
+      news = json.decode(response.body) as Map<String, dynamic>;
+      news.forEach((key, value) {
+        if (value is List) {
+          if (value.length > 3) {
+            nl = value.toList();
+            print(value.length);
+          }
+          print(nl);
+        }
+      });
+      /*    news.entries.first.value.forEach((key, value) {
+        
+      }); */
+    });
+  } catch (error) {
+    throw (error);
+  }
+  return nl;
 }
 
 class UserTransactions extends StatefulWidget {
@@ -32,16 +43,13 @@ class UserTransactions extends StatefulWidget {
 }
 
 class _UserTransactionsState extends State<UserTransactions> {
-  final List<Entry> _userTransactions = [
-    Entry(id: "eee", metaString: "rrr"),
-    Entry(id: "sss", metaString: "qqq")
-  ];
+  List _userTransactions = getd();
 
   void _addNewTransaction(String txTitle, String txAmount) {
-    final newTx = Entry(id: txTitle, metaString: txAmount);
+    //final newTx = Entry(id: txTitle, metaString: txAmount);
 
     setState(() {
-      _userTransactions.add(newTx);
+      _userTransactions = getd();
     });
   }
 
